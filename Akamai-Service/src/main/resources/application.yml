@@ -1,0 +1,31 @@
+spring:
+    application:
+      name: Akamai-Service
+
+    output:
+        ansi:
+            enabled: always
+    data:
+        mongodb:
+            uri: ${MONGODB_URI:mongodb://localhost:27017}
+            database: ${MONGODB_DATABASE:akamai}
+
+server:
+    port: ${SERVER_PORT:80}
+
+mvc:
+    throw-exception-if-no-handler-found: true
+
+akamai:
+    web:
+        jwt:
+            issuer: ${AKAMAI_WEB_JWT_ISSUER:akamai}
+            secret: ${AKAMAI_WEB_SECRET:changeme}
+    sega:
+        aimdb:
+            port: ${SEGA_AIMDB_PORT:22356}
+        allnet:
+            keychip:
+                expire: ${SEGA_ALLNET_KEYCHIP_EXPIRE:86400}
+            props:
+                place-name: ${SEGA_ALLNET_PROPS_PLACE_NAME:Akamai}
