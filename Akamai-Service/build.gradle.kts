@@ -15,18 +15,24 @@ repositories {
 }
 
 dependencies {
-    api(libs.org.springframework.boot.spring.boot.starter.data.mongodb)
-    api(libs.org.springframework.data.spring.data.mongodb)
-    api(libs.org.springframework.boot.spring.boot.starter.validation)
-    api(libs.org.springframework.boot.spring.boot.starter.security)
-    api(libs.org.springframework.boot.spring.boot.starter.web)
-    api(libs.org.springframework.boot.spring.boot.starter.jetty)
-    api(libs.org.springframework.boot.spring.boot.starter.web.services)
-    api(libs.io.netty.netty.all)
-    api(libs.joda.time.joda.time)
-    api(libs.com.github.f4b6a3.uuid.creator)
-    api(libs.org.reflections.reflections)
-    api(libs.io.jsonwebtoken.jjwt.api)
+    implementation(libs.org.springframework.boot.spring.boot.starter.data.mongodb)
+    implementation(libs.org.springframework.data.spring.data.mongodb)
+    implementation(libs.org.springframework.boot.spring.boot.starter.validation)
+    implementation(libs.org.springframework.boot.spring.boot.starter.security)
+    implementation("org.springframework.boot:spring-boot-starter-web:3.4.2") {
+        modules {
+            module("org.springframework.boot:spring-boot-starter-tomcat") {
+                replacedBy("org.springframework.boot:spring-boot-starter-jetty")
+            }
+        }
+    }
+    implementation("org.springframework.boot:spring-boot-starter-jetty:3.4.2")
+    implementation(libs.org.springframework.boot.spring.boot.starter.web.services)
+    implementation(libs.io.netty.netty.all)
+    implementation(libs.joda.time.joda.time)
+    implementation(libs.com.github.f4b6a3.uuid.creator)
+    implementation(libs.org.reflections.reflections)
+    implementation(libs.io.jsonwebtoken.jjwt.api)
     runtimeOnly(libs.io.jsonwebtoken.jjwt.impl)
     runtimeOnly(libs.io.jsonwebtoken.jjwt.gson)
     testImplementation(libs.org.springframework.boot.spring.boot.starter.test)

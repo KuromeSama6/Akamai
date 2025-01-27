@@ -53,7 +53,6 @@ public class JsonWrapperReturnResolver implements HandlerMethodReturnValueHandle
                 response.getOutputStream().write((res + "\n").getBytes(StandardCharsets.UTF_8));
 
             } else if (parameter.hasMethodAnnotation(RawJson.class) || parameter.getDeclaringClass().isAnnotationPresent(RawJson.class)) {
-                log.info("return resolve");
                 if ("deflate".equalsIgnoreCase(webRequest.getHeader("Content-Encoding"))) {
                     var ret = ZLib.Compress(jsonWrapper.toString().getBytes(StandardCharsets.UTF_8));
                     response.setHeader("Content-Encoding", "deflate");

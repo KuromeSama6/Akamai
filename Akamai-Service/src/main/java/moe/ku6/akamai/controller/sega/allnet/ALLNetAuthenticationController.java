@@ -89,7 +89,7 @@ public class ALLNetAuthenticationController {
                     .Set("token", token);
         }
 
-        log.info(ret.toString());
+//        log.info(ret.toString());
         return ret;
     }
 

@@ -52,6 +52,17 @@ public class Util {
         return ret.length > 0 ? ret[0] : new String(bytes);
     }
 
+    public static String ReadAIMEAccessCode(ByteBuf buf) {
+        /*
+        Access codes are transmitted as a hex literal, rather than as an ASCII string. That is, the access code 0103 5640 2680 5409 8707 would be represented as the 10 byte sequence 01 03 56 40 26 80 54 09 87 07.
+         */
+        StringBuilder ret = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            ret.append(String.format("%02X", buf.readByte()));
+        }
+        return ret.toString();
+    }
+
     public static String FormatByteBuf(ByteBuf buf) {
         var bytes = ByteBufUtil.getBytes(buf);
         return IntStream.range(0, bytes.length)

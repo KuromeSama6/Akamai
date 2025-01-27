@@ -41,7 +41,7 @@ public class AimeDbDecoder extends ByteToMessageDecoder {
         }
 
         var packet = new AimeDbPacket(decrypted);
-        log.info("pkt header: {}", packet.getHeader());
+//        log.info("pkt header: {}", packet.getHeader());
 
         list.add(packet);
         // move buf reader index to the end
