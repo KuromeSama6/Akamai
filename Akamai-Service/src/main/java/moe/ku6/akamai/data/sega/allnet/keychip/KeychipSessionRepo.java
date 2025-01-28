@@ -7,6 +7,9 @@ public interface KeychipSessionRepo extends MongoRepository<KeychipSession, Stri
     @Query("{ 'keychip' : ?0,  'gameId' : ?1 }")
     KeychipSession FindByKeychipAndGame(String keychip, String gameId);
 
+    @Query("{ 'keychip' : ?0 }")
+    KeychipSession FindByKeychip(String keychip);
+
     @Query(value = "{ 'keychip' : ?0, 'gameId' : ?1 }", delete = true)
     void DeleteByKeychipAndGameId(String keychip, String gameId);
 }

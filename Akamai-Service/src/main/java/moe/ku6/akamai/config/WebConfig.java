@@ -1,6 +1,8 @@
 package moe.ku6.akamai.config;
 
 import lombok.extern.slf4j.Slf4j;
+import moe.ku6.akamai.interceptor.ALLNetGameSessionInterceptor;
+import moe.ku6.akamai.resolver.JsonWrapperBodyResolver;
 import moe.ku6.akamai.resolver.JsonWrapperReturnResolver;
 import moe.ku6.akamai.resolver.UserSessionResolver;
 import org.springframework.context.annotation.Configuration;
@@ -17,15 +19,15 @@ import java.util.List;
 @Slf4j
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new ALLNetGameSessionInterceptor());
     }
-
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
 //        resolvers.add(new DFIEncodedArgumentResolver());
+        resolvers.add(new JsonWrapperBodyResolver());
         resolvers.add(new UserSessionResolver());
     }
 

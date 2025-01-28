@@ -31,12 +31,16 @@ public class AimeDbConnection extends SimpleChannelInboundHandler<AimeDbPacket> 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, AimeDbPacket packet) throws Exception {
         AimeDbServer.getInstance().getExecutorService().submit(() -> {
-            var ret = HandlePacket(packet);
-            if (ret == null) return;
-            ctx.executor().submit(() -> {
-                ctx.write(ret);
-                ctx.flush();
-            });
+            try {
+                var ret = HandlePacket(packet);
+                if (ret == null) return;
+                ctx.executor().submit(() -> {
+                    ctx.write(ret);
+                    ctx.flush();
+                });
+            } catch (Exception e) {
+                log.error("Error handling packet", e);
+            }
         });
     }
 

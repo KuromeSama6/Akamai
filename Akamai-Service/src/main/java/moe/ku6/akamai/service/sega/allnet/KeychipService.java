@@ -1,7 +1,8 @@
 package moe.ku6.akamai.service.sega.allnet;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import moe.ku6.akamai.data.akamai.account.Account;
+import moe.ku6.akamai.data.akamai.account.AkamaiAccount;
 import moe.ku6.akamai.data.sega.allnet.keychip.KeychipSession;
 import moe.ku6.akamai.data.sega.allnet.keychip.KeychipSessionRepo;
 import moe.ku6.akamai.util.RandomStringGenerator;
@@ -12,13 +13,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class KeychipSessionService {
+public class KeychipService {
+    @Getter
+    private static KeychipService instance;
+
     @Value("${akamai.sega.allnet.keychip.expire}")
     private int keychipExpireSeconds;
     @Autowired
+    @Getter
     private KeychipSessionRepo sessionRepo;
 
-    public KeychipSession CreateSession(Account account, String gameId) {
+    public KeychipService() {
+        instance = this;
+    }
+
+    public KeychipSession CreateSession(AkamaiAccount account, String gameId) {
         var session = KeychipSession.builder()
                 .id(RandomStringGenerator.GenerateRandomSnowflake())
                 .keychip(account.getKeychip())

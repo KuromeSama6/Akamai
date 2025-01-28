@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import moe.ku6.akamai.annotation.api.UrlEncodedResponse;
 import moe.ku6.akamai.data.akamai.account.AccountRepo;
 import moe.ku6.akamai.exception.sega.allnet.ALLNetException;
-import moe.ku6.akamai.service.sega.allnet.KeychipSessionService;
+import moe.ku6.akamai.service.sega.allnet.KeychipService;
 import moe.ku6.akamai.util.JsonWrapper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -23,7 +23,7 @@ public class ALLNetAuthenticationController {
     private String allnetLocationName;
 
     @Autowired
-    private KeychipSessionService keychipSessionService;
+    private KeychipService keychipSessionService;
     @Autowired
     private AccountRepo accountRepo;
 

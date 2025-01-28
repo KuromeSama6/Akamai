@@ -213,6 +213,14 @@ public class JsonWrapper implements IJsonSerializable {
         return this;
     }
 
+    public JsonWrapper Merge(String path, JsonWrapper other) {
+        var json = GetObject(path);
+        for (var key : other.GetKeys()) {
+            json.Set(key, other.Get(key));
+        }
+        return this;
+    }
+
     public JsonWrapper SetObject(String path, Object obj) {
         return Set(path, objectMapper.valueToTree(obj));
     }
@@ -238,8 +246,14 @@ public class JsonWrapper implements IJsonSerializable {
             parentNode.set(name, arrayNode);
         } else if (obj instanceof Enum<?>) {
             parentNode.put(name, obj.toString());
-        } else if (obj instanceof Number) {
-            parentNode.putPOJO(name, obj);
+        } else if (obj instanceof Integer) {
+            parentNode.put(name, (Integer)obj);
+        } else if (obj instanceof Long) {
+            parentNode.put(name, (Long)obj);
+        } else if (obj instanceof Double) {
+            parentNode.put(name, (Double)obj);
+        } else if (obj instanceof Float) {
+            parentNode.put(name, (Float)obj);
         } else if (obj instanceof Boolean) {
             parentNode.put(name, (Boolean)obj);
 

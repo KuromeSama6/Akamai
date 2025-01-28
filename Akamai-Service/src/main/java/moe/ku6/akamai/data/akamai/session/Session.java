@@ -1,21 +1,21 @@
 package moe.ku6.akamai.data.akamai.session;
 
 import lombok.*;
-import moe.ku6.akamai.data.akamai.account.Account;
+import moe.ku6.akamai.data.akamai.account.AkamaiAccount;
 import org.joda.time.DateTime;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
-@Document("session")
+@Document("akamai_session")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Session {
     private String id;
     @DBRef
-    private Account account;
+    private AkamaiAccount account;
     private DateTime started;
     @Indexed(expireAfterSeconds = 0)
     @Setter

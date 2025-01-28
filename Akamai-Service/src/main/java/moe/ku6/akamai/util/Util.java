@@ -3,6 +3,7 @@ package moe.ku6.akamai.util;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import lombok.experimental.UtilityClass;
+import org.joda.time.DateTime;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -68,5 +69,10 @@ public class Util {
         return IntStream.range(0, bytes.length)
                 .mapToObj(i -> String.format("%02X", bytes[i] & 0xFF)) // Format each byte to hex
                 .collect(Collectors.joining(" ")); // Join with spaces
+    }
+
+    public static String FormatDatetimeALLNetUTC(DateTime time) {
+        // 2025-01-27 22:54:46.0
+        return time.toString("yyyy-MM-dd HH:mm:ss.S");
     }
 }

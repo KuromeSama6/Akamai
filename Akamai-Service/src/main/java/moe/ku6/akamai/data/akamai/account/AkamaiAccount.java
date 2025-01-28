@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account implements IJsonSerializable {
+public class AkamaiAccount implements IJsonSerializable {
     @Id
     private String id;
     private String username;
@@ -30,7 +30,7 @@ public class Account implements IJsonSerializable {
     @Setter
     private String keychip;
 
-    public Account(String username, String email, String password) {
+    public AkamaiAccount(String username, String email, String password) {
         this.id = RandomStringGenerator.GenerateRandomSnowflake();
         this.username = username;
         this.password = password;
@@ -44,7 +44,7 @@ public class Account implements IJsonSerializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Account account = (Account)o;
+        AkamaiAccount account = (AkamaiAccount)o;
         return id.equals(account.id);
     }
 

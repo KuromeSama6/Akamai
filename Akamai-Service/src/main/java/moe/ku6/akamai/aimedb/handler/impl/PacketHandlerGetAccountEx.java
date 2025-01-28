@@ -25,12 +25,12 @@ public class PacketHandlerGetAccountEx extends AimeDbPacketHandler {
     public void Handle(AimeDbPacket packet, ByteBuf msg, ByteBuf out, SocketChannel ctx) {
         String accessCode = Util.ReadAIMEAccessCode(msg);
 
-        log.info("GetAccountEx, accessCode={}, ip={}", accessCode, ctx.remoteAddress().getAddress().toString());
         var card = AimeCardService.getInstance().GetAndAccess(accessCode, ctx.remoteAddress().getAddress().toString());
+        log.info("GetAccountEx, accessCode={}, ip={}, card={}", accessCode, ctx.remoteAddress().getAddress().toString(), card);
 
         // dword aime id
         if (card != null) {
-
+            out.writeIntLE(card.getAimeId());
         } else {
             out.writeIntLE(0xffffffff);
         }

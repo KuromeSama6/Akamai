@@ -1,6 +1,7 @@
 package moe.ku6.akamai.resolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import moe.ku6.akamai.annotation.api.UrlEncodedResponse;
@@ -53,7 +54,11 @@ public class JsonWrapperReturnResolver implements HandlerMethodReturnValueHandle
                 response.getOutputStream().write((res + "\n").getBytes(StandardCharsets.UTF_8));
 
             } else if (parameter.hasMethodAnnotation(RawJson.class) || parameter.getDeclaringClass().isAnnotationPresent(RawJson.class)) {
+                response.setStatus(jsonWrapper.GetInt("__status", 200));
+                jsonWrapper.Set("__status", null);
+
                 if ("deflate".equalsIgnoreCase(webRequest.getHeader("Content-Encoding"))) {
+                    // debug log
                     var ret = ZLib.Compress(jsonWrapper.toString().getBytes(StandardCharsets.UTF_8));
                     response.setHeader("Content-Encoding", "deflate");
                     response.getOutputStream().write(ret);

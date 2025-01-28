@@ -14,6 +14,7 @@ public class AimeCardService {
     @Getter
     private static AimeCardService instance;
     @Autowired
+    @Getter
     private AimeCardRepo cardRepo;
 
     public AimeCardService() {

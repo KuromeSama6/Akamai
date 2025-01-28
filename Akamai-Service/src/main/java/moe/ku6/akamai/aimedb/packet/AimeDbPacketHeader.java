@@ -1,8 +1,6 @@
 package moe.ku6.akamai.aimedb.packet;
 
 import io.netty.buffer.ByteBuf;
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 import moe.ku6.akamai.util.Util;
@@ -17,7 +15,7 @@ public class AimeDbPacketHeader {
     private final int length;
     private final int bodyLength;
     private final String gameId;
-    private final int storeId;
+    private final int placeId;
     private final String keychip;
 
     public AimeDbPacketHeader(ByteBuf buf) {
@@ -40,7 +38,7 @@ public class AimeDbPacketHeader {
         gameId = Util.ReadToStringNullTerminated(buf, 6);
 
         // 4 byte store id
-        storeId = buf.readIntLE();
+        placeId = buf.readIntLE();
 
         // 11+1 byte keychip
         keychip = Util.ReadToStringNullTerminated(buf, 12);

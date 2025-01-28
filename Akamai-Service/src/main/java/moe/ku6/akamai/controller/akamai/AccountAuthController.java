@@ -1,11 +1,10 @@
 package moe.ku6.akamai.controller.akamai;
 
 import jakarta.validation.Valid;
-import moe.ku6.akamai.data.akamai.account.Account;
+import moe.ku6.akamai.data.akamai.account.AkamaiAccount;
 import moe.ku6.akamai.data.akamai.account.AccountRepo;
 import moe.ku6.akamai.data.akamai.session.SessionIssueRequest;
 import moe.ku6.akamai.exception.api.APIException;
-import moe.ku6.akamai.exception.api.FeatureNotImplementedException;
 import moe.ku6.akamai.request.auth.RegisterRequest;
 import moe.ku6.akamai.request.auth.WebAuthenticateRequest;
 import moe.ku6.akamai.service.akamai.AccountSessionService;
@@ -53,7 +52,7 @@ public class AccountAuthController {
             throw new APIException(409, "username/email unavailable");
 
         String passwordHash = passwordEncoder.encode(req.getPassword());
-        Account account = new Account(req.getUsername(), req.getEmail(), passwordHash);
+        AkamaiAccount account = new AkamaiAccount(req.getUsername(), req.getEmail(), passwordHash);
 
         accountRepo.save(account);
         return null;
